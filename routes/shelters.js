@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getShelter, uploadPhoto } = require("../controllers/shelters");
-
-router.get("/", getShelter);
+const { sheltersModel } = require("../models/shelter");
+const { encrypt, compare } = require("../utils/handlePassword");
 
 module.exports = router;
