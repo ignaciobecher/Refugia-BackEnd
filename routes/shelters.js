@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { sheltersModel } = require("../models/shelter");
-const { encrypt, compare } = require("../utils/handlePassword");
+const { registerUser } = require("../controllers/shelters");
+
+router.post("/register", registerUser);
 
 module.exports = router;

@@ -17,7 +17,7 @@ const tokenSign = async (user) => {
 };
 
 //Verificar que esta firmado
-const verifyToken = async (tokenSign) => {
+const verifyToken = async (tokenJwt) => {
   try {
     return jsonwebtoken.verify(tokenJwt, JWT_SECRET);
   } catch (error) {

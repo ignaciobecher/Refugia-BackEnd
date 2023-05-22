@@ -11,6 +11,7 @@ const ShelterScheme = new mongoose.Schema(
     },
     password: {
       type: String,
+      required: true,
     },
     shelterName: {
       type: String,
