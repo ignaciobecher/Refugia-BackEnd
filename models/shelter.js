@@ -22,7 +22,7 @@ const ShelterScheme = new mongoose.Schema(
     address: {
       type: String,
     },
-    socialNetworks: {
+    city: {
       type: String,
     },
   },
