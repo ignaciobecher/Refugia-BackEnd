@@ -2,7 +2,9 @@ const { sheltersModel } = require("../models/shelter");
 const { encrypt, comparePasswords } = require("../utils/handlePassword");
 const { handleHttpError } = require("../utils/handleHTTPError");
 const { tokenSign } = require("../utils/handleJWT");
+const _ = require("lodash");
 
+//Regostrar usuario
 const registerUser = async (req, res) => {
   try {
     const { userName, password, email } = req.body;
@@ -21,6 +23,7 @@ const registerUser = async (req, res) => {
   }
 };
 
+//Logear usuario
 const loginUser = async (req, res) => {
   const user = await sheltersModel
     .findOne({ email: req.body.email })
@@ -48,7 +51,8 @@ const loginUser = async (req, res) => {
   console.log("UserId:", userId);
 };
 
-const createShelter = async (req, res) => {
+//Actualizar datos del refugio una vez actualizado
+const updateShelter = async (req, res) => {
   try {
     const { id } = req.params;
     const { shelterName, telephone, address, city } = req.body;
@@ -61,4 +65,55 @@ const createShelter = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, createShelter };
+//Mostrar todos los refugios
+const getShelters = async (req, res) => {
+  try {
+    const shelters = await sheltersModel.find();
+
+    const filteredShelters = shelters.map((shelter) => {
+      const filteredShelter = _.omit(shelter.toObject(), [
+        "password",
+        "userName",
+        "email",
+        "_id",
+        "createdAt",
+        "updatedAt",
+        "__v",
+      ]);
+      return filteredShelter;
+    });
+    res.send(filteredShelters);
+  } catch (error) {
+    console.log(error);
+    handleHttpError(res, "ERROR_GET_SHELTERS");
+  }
+};
+
+//Mostrar un refugio
+const getSingleShelter = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const shelter = await sheltersModel.findById({ _id: id });
+    const filteredShelter = _.omit(shelter.toObject(), [
+      "password",
+      "userName",
+      "email",
+      "_id",
+      "createdAt",
+      "updatedAt",
+      "__v",
+    ]);
+    res.send(filteredShelter);
+  } catch (error) {
+    console.log(error);
+    handleHttpError(res, "ERROR_GET_SHELTER");
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  updateShelter,
+  getShelters,
+  getSingleShelter,
+};

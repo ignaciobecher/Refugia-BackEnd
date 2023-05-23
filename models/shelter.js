@@ -25,6 +25,12 @@ const ShelterScheme = new mongoose.Schema(
     city: {
       type: String,
     },
+    pets: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "shelters",
+      },
+    ],
   },
   {
     timestamps: true,
