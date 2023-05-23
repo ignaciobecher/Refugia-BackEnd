@@ -17,8 +17,7 @@ const PetTestScheme = new mongoose.Schema({
     type: String,
   },
   photo: {
-    data: Buffer, // Campo de tipo Buffer para almacenar los datos binarios del archivo
-    contentType: String, // Tipo de contenido del archivo (ej. image/jpeg, image/png, etc.)
+    type: String,
   },
   refugeId: {
     type: mongoose.Schema.Types.ObjectId,

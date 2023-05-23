@@ -29,16 +29,12 @@ const _ = require("lodash");
 
 const uploadAndCreatePet = async (req, res) => {
   try {
-    const { body, file } = req;
-    console.log(file);
-    const fileData = {
-      filename: file.filename,
-      url: `${PUBLIC_URL}/${file.filename}`,
-    };
+    const { body } = req;
+    if (req.file) {
+      body.photo = req.file.path;
+    }
 
-    const petData = _.merge(body, fileData);
-
-    const pet = await petsTestModel.create(petData);
+    const pet = await petsTestModel.create(body);
     res.send(pet);
   } catch (error) {
     handleHttpError(res, "ERROR_UPLOAD_AND_CREATE_PET");
