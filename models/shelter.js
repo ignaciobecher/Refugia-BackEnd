@@ -28,7 +28,7 @@ const ShelterScheme = new mongoose.Schema(
     pets: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "shelters",
+        ref: "pets",
       },
     ],
   },
