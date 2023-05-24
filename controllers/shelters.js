@@ -1,4 +1,5 @@
 const { sheltersModel } = require("../models/shelter");
+const { petsModel } = require("../models/pets");
 const { encrypt, comparePasswords } = require("../utils/handlePassword");
 const { handleHttpError } = require("../utils/handleHTTPError");
 const { tokenSign } = require("../utils/handleJWT");
@@ -80,9 +81,11 @@ const getShelters = async (req, res) => {
         "updatedAt",
         "__v",
       ]);
+
       return filteredShelter;
     });
-    res.send(filteredShelters);
+
+    res.send({ filteredShelters });
   } catch (error) {
     console.log(error);
     handleHttpError(res, "ERROR_GET_SHELTERS");
